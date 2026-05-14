@@ -10,5 +10,3 @@ services:
     # works for device discovery. Only supported on Linux hosts.
     network_mode: host
     env_file: .env
-    volumes:
-      - ./data:/data
