@@ -1,5 +1,9 @@
 # localsend-paperless
 
+[![License: MIT](https://img.shields.io/github/license/do2sz/localsend-paperless-docker)](./LICENSE)
+[![Docker build](https://github.com/do2sz/localsend-paperless-docker/actions/workflows/docker-build.yml/badge.svg)](https://github.com/do2sz/localsend-paperless-docker/actions/workflows/docker-build.yml)
+[![Latest release](https://img.shields.io/github/v/release/do2sz/localsend-paperless-docker?display_name=tag&sort=semver)](https://github.com/do2sz/localsend-paperless-docker/releases)
+
 Headless [LocalSend](https://localsend.org) receiver in Docker that auto-accepts
 every transfer and forwards each file to a [Paperless-ngx](https://docs.paperless-ngx.com/)
 instance via the REST API.
@@ -143,6 +147,5 @@ affiliated with either.
 
 ## Contributing
 
-Issues and pull requests are welcome. Please keep changes minimal and focused,
-and avoid adding runtime dependencies unless they remove substantially more
-code than they add.
+See [`CONTRIBUTING.md`](./CONTRIBUTING.md). For security-sensitive reports use
+the private channel described in [`SECURITY.md`](./SECURITY.md).
