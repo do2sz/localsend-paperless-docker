@@ -311,9 +311,13 @@
 cd localsend-paperless-docker
 cp .env.example .env
 # Edit .env: at minimum set PAPERLESS_URL and PAPERLESS_TOKEN.
-docker compose up -d --build
+docker compose up -d
 docker compose logs -f
 </code></pre>
+  <p>The bundled <code>docker-compose.yml</code> pulls the pre-built multi-arch
+     image from GHCR (<code>ghcr.io/do2sz/localsend-paperless-docker:latest</code>).
+     To build the image locally instead — e.g. when developing — run
+     <code>docker compose build</code> (or <code>docker compose up -d --build</code>).</p>
   <p>Open the LocalSend app on a device in the same LAN. The configured alias
      (<code>Paperless Inbox</code> by default) shows up in the device list.
      Send any PDF, JPG or PNG — it should appear in Paperless within a few

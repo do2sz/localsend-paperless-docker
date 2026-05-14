@@ -52,9 +52,14 @@ Two processes run inside the container:
 ```sh
 cp .env.example .env
 # edit .env → at minimum set PAPERLESS_URL and PAPERLESS_TOKEN
-docker compose up -d --build
+docker compose up -d
 docker compose logs -f
 ```
+
+The bundled `docker-compose.yml` pulls the pre-built multi-arch image from
+GHCR (`ghcr.io/do2sz/localsend-paperless-docker:latest`). If you want to build
+the image locally instead — e.g. when developing — run `docker compose build`
+(or `docker compose up -d --build`).
 
 In the LocalSend app on your phone, the configured `LOCALSEND_ALIAS`
 ("Paperless Inbox" by default) should appear in the device list. Send any
