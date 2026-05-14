@@ -8,10 +8,11 @@ Headless [LocalSend](https://localsend.org) receiver in Docker that auto-accepts
 every transfer and forwards each file to a [Paperless-ngx](https://docs.paperless-ngx.com/)
 instance via the REST API.
 
-> **Full documentation:** see [`docs/index.html`](./docs/index.html) for a
-> visual walkthrough, architecture diagram, configuration reference and
-> troubleshooting guide. Once the repository is public on GitHub you can also
-> enable GitHub Pages from `main` / `/docs` to serve it as a website.
+> 📖 **Prefer the pretty docs?** A visual, illustrated walkthrough with
+> architecture diagram, configuration tables and troubleshooting guide is
+> published at **<https://do2sz.github.io/localsend-paperless-docker/>**.
+> The same content is in [`docs/index.html`](./docs/index.html) if you want
+> to read it offline.
 
 ```
 phone/laptop → LocalSend (HTTPS :53317) → container → Paperless-ngx
