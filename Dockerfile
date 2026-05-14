@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.7
 
 # ---- Build localsend-cli (Go) ----
-FROM golang:1.23-alpine AS lsbuild
+FROM golang:1.26-alpine AS lsbuild
 RUN apk add --no-cache git
 ARG LOCALSEND_CLI_REPO=https://github.com/0w0mewo/localsend-cli
 ARG LOCALSEND_CLI_REF=v0.0.6
