@@ -1,0 +1,13 @@
+services:
+  localsend-paperless:
+    build:
+      context: .
+    image: localsend-paperless:latest
+    container_name: localsend-paperless
+    restart: unless-stopped
+    # host network is required so LocalSend's UDP multicast (224.0.0.167:53317)
+    # works for device discovery. Only supported on Linux hosts.
+    network_mode: host
+    env_file: .env
+    volumes:
+      - ./data:/data

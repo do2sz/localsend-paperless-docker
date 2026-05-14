@@ -1,0 +1,24 @@
+# Secrets / local config
+.env
+.env.local
+.env.*.local
+
+# Runtime data (received files, retry queue, TLS cert)
+data/
+
+# Local tooling
+.bmad-core/
+.claude/
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# macOS / editors
+.DS_Store
+*.swp
