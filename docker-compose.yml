@@ -1,11 +1,9 @@
 services:
   localsend-paperless:
     # Pre-built multi-arch image published by .github/workflows/docker-build.yml.
-    # To build locally instead, run `docker compose build` (the build context
-    # below tags the resulting image with the same name).
+    # To build locally instead, use the dev override:
+    #   docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
     image: ghcr.io/do2sz/localsend-paperless-docker:latest
-    build:
-      context: .
     container_name: localsend-paperless
     restart: unless-stopped
     # host network is required so LocalSend's UDP multicast (224.0.0.167:53317)

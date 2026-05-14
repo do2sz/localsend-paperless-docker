@@ -57,9 +57,12 @@ docker compose logs -f
 ```
 
 The bundled `docker-compose.yml` pulls the pre-built multi-arch image from
-GHCR (`ghcr.io/do2sz/localsend-paperless-docker:latest`). If you want to build
-the image locally instead — e.g. when developing — run `docker compose build`
-(or `docker compose up -d --build`).
+GHCR (`ghcr.io/do2sz/localsend-paperless-docker:latest`). To build the image
+locally instead — e.g. when developing — use the dev override:
+
+```sh
+docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
+```
 
 In the LocalSend app on your phone, the configured `LOCALSEND_ALIAS`
 ("Paperless Inbox" by default) should appear in the device list. Send any
