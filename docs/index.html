@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>localsend-paperless — Docs</title>
+<style>
+  :root {
+    --bg: #0f1115;
+    --panel: #161922;
+    --panel-2: #1d2230;
+    --text: #e6e8ee;
+    --muted: #9aa3b2;
+    --accent: #6aa9ff;
+    --accent-2: #7dd3a8;
+    --warn: #f0b86e;
+    --danger: #ef6f6c;
+    --border: #262b39;
+    --code-bg: #0b0d12;
+    --radius: 10px;
+    --maxw: 920px;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #fafafa;
+      --panel: #ffffff;
+      --panel-2: #f1f3f8;
+      --text: #1d212b;
+      --muted: #5b6473;
+      --accent: #2a6df4;
+      --accent-2: #1e8e54;
+      --warn: #b86b00;
+      --danger: #b73830;
+      --border: #e3e6ec;
+      --code-bg: #f1f3f8;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font: 15px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 32px 20px 80px; }
+  header {
+    display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
+    padding-bottom: 24px; border-bottom: 1px solid var(--border); margin-bottom: 32px;
+  }
+  header h1 {
+    margin: 0; font-size: 28px; letter-spacing: -0.01em;
+  }
+  header .tag {
+    font-size: 12px; color: var(--accent);
+    padding: 3px 10px; border: 1px solid var(--accent);
+    border-radius: 999px; text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  header p {
+    flex-basis: 100%; margin: 6px 0 0; color: var(--muted); font-size: 16px;
+  }
+  nav.toc {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px 18px; margin-bottom: 32px;
+  }
+  nav.toc strong { font-size: 12px; letter-spacing: 0.1em; color: var(--muted);
+    text-transform: uppercase; }
+  nav.toc ol { margin: 8px 0 0; padding-left: 22px; columns: 2; column-gap: 24px; }
+  nav.toc a { color: var(--text); text-decoration: none; }
+  nav.toc a:hover { color: var(--accent); text-decoration: underline; }
+  h2 {
+    margin: 40px 0 14px; font-size: 22px; letter-spacing: -0.01em;
+    padding-bottom: 6px; border-bottom: 1px solid var(--border);
+  }
+  h3 { margin: 24px 0 8px; font-size: 17px; }
+  p, ul, ol { margin: 0 0 12px; }
+  ul, ol { padding-left: 22px; }
+  code {
+    font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    background: var(--code-bg); padding: 1px 6px; border-radius: 5px;
+    border: 1px solid var(--border);
+  }
+  pre {
+    background: var(--code-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px 16px; overflow-x: auto;
+  }
+  pre code { background: transparent; border: 0; padding: 0; }
+  a { color: var(--accent); }
+  table {
+    width: 100%; border-collapse: collapse; margin: 6px 0 12px;
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: var(--radius); overflow: hidden;
+  }
+  th, td {
+    text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border);
+    vertical-align: top; font-size: 14px;
+  }
+  th {
+    background: var(--panel-2); font-weight: 600; color: var(--muted);
+    text-transform: uppercase; font-size: 11px; letter-spacing: 0.06em;
+  }
+  tr:last-child td { border-bottom: 0; }
+  td code { font-size: 12px; }
+  .callout {
+    border-left: 4px solid var(--accent); background: var(--panel);
+    padding: 12px 16px; border-radius: 0 var(--radius) var(--radius) 0;
+    margin: 14px 0;
+  }
+  .callout.warn { border-left-color: var(--warn); }
+  .callout.danger { border-left-color: var(--danger); }
+  .callout strong { display: block; margin-bottom: 4px; }
+  .grid-cards {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px; margin: 18px 0 24px;
+  }
+  .card {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 16px;
+  }
+  .card .n {
+    display: inline-flex; width: 26px; height: 26px; align-items: center;
+    justify-content: center; border-radius: 50%; background: var(--accent);
+    color: #fff; font-weight: 700; font-size: 13px; margin-bottom: 10px;
+  }
+  .card h4 { margin: 0 0 6px; font-size: 15px; }
+  .card p { margin: 0; color: var(--muted); font-size: 14px; }
+  .diagram {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 18px; margin: 12px 0 18px;
+  }
+  .diagram svg { width: 100%; height: auto; display: block; }
+  footer {
+    margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--border);
+    color: var(--muted); font-size: 13px;
+  }
+  footer a { color: var(--muted); }
+  .pill {
+    display: inline-block; padding: 2px 8px; font-size: 11px; border-radius: 999px;
+    background: var(--panel-2); border: 1px solid var(--border); color: var(--muted);
+    margin-right: 4px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>localsend-paperless</h1>
+  <span class="tag">Docker · Self-hosted</span>
+  <p>A headless <a href="https://localsend.org">LocalSend</a> receiver in a Docker container
+     that automatically forwards every incoming file to your
+     <a href="https://docs.paperless-ngx.com/">Paperless-ngx</a> instance.</p>
+</header>
+
+<nav class="toc">
+  <strong>On this page</strong>
+  <ol>
+    <li><a href="#what">What it does</a></li>
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#requirements">Requirements</a></li>
+    <li><a href="#quickstart">Quick start</a></li>
+    <li><a href="#config">Configuration</a></li>
+    <li><a href="#volumes">Volumes</a></li>
+    <li><a href="#operate">Operational notes</a></li>
+    <li><a href="#troubleshoot">Troubleshooting</a></li>
+    <li><a href="#license">License &amp; attribution</a></li>
+  </ol>
+</nav>
+
+<section id="what">
+  <h2>What it does</h2>
+  <p>Send a PDF, photo or scan from any phone, laptop or tablet to the container
+     via the standard LocalSend app — and find it indexed in Paperless-ngx a few
+     seconds later. No taps, no confirmation, no manual upload.</p>
+  <div class="grid-cards">
+    <div class="card">
+      <div class="n">1</div><h4>Receive</h4>
+      <p>The container announces itself on the LAN and auto-accepts every
+         LocalSend transfer (optionally PIN-gated).</p>
+    </div>
+    <div class="card">
+      <div class="n">2</div><h4>Forward</h4>
+      <p>Each received file is POSTed to <code>/api/documents/post_document/</code>
+         with token auth and your configured metadata defaults.</p>
+    </div>
+    <div class="card">
+      <div class="n">3</div><h4>Verify</h4>
+      <p>The forwarder polls <code>/api/tasks/</code> until Paperless reports
+         <code>SUCCESS</code>, then deletes the local file.</p>
+    </div>
+    <div class="card">
+      <div class="n">4</div><h4>Retry</h4>
+      <p>If Paperless is down, the file is moved to <code>/data/retry</code>
+         and re-attempted automatically.</p>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <h2>How it works</h2>
+  <p>Two processes run inside the container, supervised by a small
+     <code>tini</code>-managed shell script:</p>
+  <ul>
+    <li>
+      <strong>localsend-cli recv</strong> — vendored Go binary from
+      <a href="https://github.com/0w0mewo/localsend-cli">0w0mewo/localsend-cli</a>,
+      built from source in a multi-stage Docker build and pinned to a release
+      tag. It listens on TCP/UDP <code>53317</code>, announces itself via UDP
+      multicast (<code>224.0.0.167</code>), generates a self-signed HTTPS
+      certificate at first run, and writes received files into
+      <code>/data/incoming</code>. There is no UI to confirm transfers — every
+      transfer is accepted automatically, optionally gated by a PIN.
+    </li>
+    <li>
+      <strong>python -m forwarder</strong> — small Python service that watches
+      <code>/data/incoming</code> with <code>watchdog</code> (inotify), waits
+      until each new file’s size stops changing, uploads it to Paperless-ngx
+      using a token-authenticated multipart POST, and optionally polls
+      <code>/api/tasks/</code> to confirm consumption succeeded. On success the
+      local file is deleted; on failure it is moved to
+      <code>/data/retry/&lt;timestamp&gt;/</code> with an <code>.err</code>
+      sidecar and retried periodically.
+    </li>
+  </ul>
+</section>
+
+<section id="architecture">
+  <h2>Architecture</h2>
+  <div class="diagram">
+    <svg viewBox="0 0 900 360" xmlns="http://www.w3.org/2000/svg" role="img"
+         aria-label="Architecture diagram: phones and laptops send via LocalSend on UDP/HTTPS to a Docker container that runs localsend-cli plus a Python forwarder, which then POSTs to Paperless-ngx.">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5"
+                markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#6aa9ff"/>
+        </marker>
+        <style>
+          .box  { fill: #1d2230; stroke: #262b39; stroke-width: 1; rx: 10; }
+          .box2 { fill: #161922; stroke: #262b39; stroke-width: 1; rx: 10; }
+          .lbl  { fill: #e6e8ee; font: 600 14px ui-sans-serif, system-ui;
+                  text-anchor: middle; }
+          .sub  { fill: #9aa3b2; font: 12px ui-monospace, Menlo;
+                  text-anchor: middle; }
+          .edge { stroke: #6aa9ff; stroke-width: 1.6; fill: none;
+                  marker-end: url(#arrow); }
+          .edgeLabel { fill: #9aa3b2; font: 11px ui-monospace, Menlo;
+                       text-anchor: middle; }
+        </style>
+      </defs>
+
+      <!-- Senders -->
+      <rect class="box" x="20" y="40" width="180" height="70"/>
+      <text class="lbl" x="110" y="68">Phone / Laptop</text>
+      <text class="sub" x="110" y="90">LocalSend app</text>
+
+      <!-- Container outer -->
+      <rect class="box2" x="280" y="20" width="380" height="320"/>
+      <text class="sub" x="470" y="42" style="font-weight:700;">Docker container · host network</text>
+
+      <!-- localsend-cli -->
+      <rect class="box" x="305" y="70" width="330" height="100"/>
+      <text class="lbl" x="470" y="100">localsend-cli recv</text>
+      <text class="sub" x="470" y="122">Go binary · HTTPS :53317</text>
+      <text class="sub" x="470" y="140">writes → /data/incoming</text>
+      <text class="sub" x="470" y="158">PIN optional · auto-accept</text>
+
+      <!-- forwarder -->
+      <rect class="box" x="305" y="195" width="330" height="120"/>
+      <text class="lbl" x="470" y="225">python -m forwarder</text>
+      <text class="sub" x="470" y="248">watchdog → debounce → POST</text>
+      <text class="sub" x="470" y="266">poll /api/tasks/ → delete</text>
+      <text class="sub" x="470" y="284">retry queue → /data/retry</text>
+
+      <!-- Paperless -->
+      <rect class="box" x="700" y="200" width="180" height="80"/>
+      <text class="lbl" x="790" y="232">Paperless-ngx</text>
+      <text class="sub" x="790" y="254">REST API</text>
+      <text class="sub" x="790" y="270">post_document</text>
+
+      <!-- arrows -->
+      <path class="edge" d="M 200 75 C 240 75, 260 110, 305 110"/>
+      <text class="edgeLabel" x="245" y="68">multicast + HTTPS</text>
+
+      <path class="edge" d="M 470 175 L 470 190"/>
+      <text class="edgeLabel" x="540" y="187">/data/incoming</text>
+
+      <path class="edge" d="M 635 255 L 700 240"/>
+      <text class="edgeLabel" x="668" y="270">HTTPS + token</text>
+    </svg>
+  </div>
+</section>
+
+<section id="requirements">
+  <h2>Requirements</h2>
+  <ul>
+    <li>A Linux Docker host. Host networking is required so LocalSend’s UDP
+        multicast discovery (<code>224.0.0.167:53317</code>) reaches the
+        container; Docker Desktop on macOS or Windows will not forward these
+        packets properly.</li>
+    <li>A reachable <a href="https://docs.paperless-ngx.com/">Paperless-ngx</a>
+        instance and an API token (Profile → API Auth Token).</li>
+    <li>TCP and UDP port <code>53317</code> free on the host.</li>
+  </ul>
+</section>
+
+<section id="quickstart">
+  <h2>Quick start</h2>
+<pre><code>git clone https://github.com/do2sz/localsend-paperless-docker.git
+cd localsend-paperless-docker
+cp .env.example .env
+# Edit .env: at minimum set PAPERLESS_URL and PAPERLESS_TOKEN.
+docker compose up -d --build
+docker compose logs -f
+</code></pre>
+  <p>Open the LocalSend app on a device in the same LAN. The configured alias
+     (<code>Paperless Inbox</code> by default) shows up in the device list.
+     Send any PDF, JPG or PNG — it should appear in Paperless within a few
+     seconds.</p>
+</section>
+
+<section id="config">
+  <h2>Configuration</h2>
+  <p>Everything is configured through environment variables. See
+     <code>.env.example</code> in the repository for the full list with defaults.
+     The most important ones:</p>
+
+  <h3>Required</h3>
+  <table>
+    <thead><tr><th>Variable</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>PAPERLESS_URL</code></td>
+          <td>Base URL of your Paperless-ngx instance, e.g.
+              <code>https://paperless.lan</code>.</td></tr>
+      <tr><td><code>PAPERLESS_TOKEN</code></td>
+          <td>API token from <em>Paperless → Profile → API Auth Token</em>.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>LocalSend</h3>
+  <table>
+    <thead><tr><th>Variable</th><th>Default</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>LOCALSEND_ALIAS</code></td><td><code>Paperless Inbox</code></td>
+          <td>Display name shown to senders in the LocalSend app.</td></tr>
+      <tr><td><code>LOCALSEND_PIN</code></td><td><em>empty</em></td>
+          <td>Optional PIN. Leave empty to accept every transfer without
+              prompting.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Paperless defaults (optional)</h3>
+  <table>
+    <thead><tr><th>Variable</th><th>Effect</th></tr></thead>
+    <tbody>
+      <tr><td><code>PAPERLESS_DEFAULT_TAGS</code></td>
+          <td>Comma-separated tag IDs to attach to every uploaded document.</td></tr>
+      <tr><td><code>PAPERLESS_DEFAULT_CORRESPONDENT</code></td>
+          <td>Numeric correspondent ID.</td></tr>
+      <tr><td><code>PAPERLESS_DEFAULT_DOCUMENT_TYPE</code></td>
+          <td>Numeric document-type ID.</td></tr>
+      <tr><td><code>PAPERLESS_DEFAULT_STORAGE_PATH</code></td>
+          <td>Numeric storage-path ID.</td></tr>
+      <tr><td><code>PAPERLESS_TITLE_PREFIX</code></td>
+          <td>String prepended to the document title (derived from filename
+              stem).</td></tr>
+      <tr><td><code>PAPERLESS_VERIFY_SSL</code></td>
+          <td>Set <code>false</code> to allow a Paperless instance with a
+              self-signed certificate.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Behaviour</h3>
+  <table>
+    <thead><tr><th>Variable</th><th>Default</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>PAPERLESS_POLL_TASK</code></td><td><code>true</code></td>
+          <td>Poll <code>/api/tasks/</code> to confirm consumption before
+              deleting the local file.</td></tr>
+      <tr><td><code>PAPERLESS_POLL_TIMEOUT_SECONDS</code></td><td><code>60</code></td>
+          <td>Maximum time to wait for a task result.</td></tr>
+      <tr><td><code>WATCHER_DEBOUNCE_SECONDS</code></td><td><code>2</code></td>
+          <td>Seconds the file size must remain stable before the file is
+              considered fully received.</td></tr>
+      <tr><td><code>RETRY_INTERVAL_SECONDS</code></td><td><code>300</code></td>
+          <td>How often <code>/data/retry</code> is rescanned.</td></tr>
+      <tr><td><code>LOG_LEVEL</code></td><td><code>INFO</code></td>
+          <td>Python logging level.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="volumes">
+  <h2>Volumes</h2>
+  <ul>
+    <li><code>/data/incoming</code> — staging area for in-flight uploads.
+        Normally empty between transfers.</li>
+    <li><code>/data/retry</code> — files whose Paperless upload failed.
+        Sidecar <code>.err</code> files hold the last error message. Files
+        are retried automatically.</li>
+  </ul>
+  <p>Both live under <code>/data</code>, which the bundled
+     <code>docker-compose.yml</code> mounts to <code>./data</code> on the host.</p>
+</section>
+
+<section id="operate">
+  <h2>Operational notes</h2>
+  <div class="callout">
+    <strong>Discovery requires host networking.</strong>
+    UDP multicast does not traverse Docker’s bridge networks, so without
+    <code>network_mode: host</code> the container will be reachable only by
+    typing its IP manually in the LocalSend app.
+  </div>
+  <div class="callout warn">
+    <strong>Self-signed certificate.</strong>
+    The HTTPS certificate is generated and managed by <code>localsend-cli</code>
+    on first start. LocalSend clients pin by SHA-256 fingerprint, not by trust
+    chain — so this is fine.
+  </div>
+  <div class="callout warn">
+    <strong>Filesystem permissions.</strong>
+    The container drops to UID <code>1000</code>. If the bind-mounted
+    <code>./data</code> directory is owned by root on the host, the container
+    cannot write to it. Fix once with <code>sudo chown -R 1000:1000 ./data</code>.
+  </div>
+</section>
+
+<section id="troubleshoot">
+  <h2>Troubleshooting</h2>
+  <table>
+    <thead><tr><th>Symptom</th><th>Likely cause / fix</th></tr></thead>
+    <tbody>
+      <tr><td>Files pile up in <code>/data/retry</code>.</td>
+          <td>Inspect <code>docker compose logs</code> and the
+              <code>.err</code> sidecar. Most common: wrong
+              <code>PAPERLESS_URL</code>, expired
+              <code>PAPERLESS_TOKEN</code>, or
+              <code>PAPERLESS_VERIFY_SSL</code> should be <code>false</code>.</td></tr>
+      <tr><td>Container is up but does not show in the LocalSend app.</td>
+          <td>Host networking is not active, or the host firewall blocks
+              UDP <code>53317</code> / TCP <code>53317</code>.</td></tr>
+      <tr><td>Sender app rejects the connection.</td>
+          <td>Wrong <code>LOCALSEND_PIN</code>, or the device is on a different
+              VLAN where multicast is filtered.</td></tr>
+      <tr><td>Paperless rejects exotic formats.</td>
+          <td>Install the optional Tika integration in your Paperless-ngx
+              deployment to accept Office documents.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="license">
+  <h2>License &amp; attribution</h2>
+  <p>This project is released under the
+     <a href="https://github.com/do2sz/localsend-paperless-docker/blob/main/LICENSE">MIT License</a>.</p>
+  <p>It builds and bundles the following upstream components:</p>
+  <ul>
+    <li><a href="https://github.com/0w0mewo/localsend-cli">0w0mewo/localsend-cli</a>
+        — MIT, compiled from source inside the Docker build.</li>
+    <li><a href="https://github.com/localsend/protocol">LocalSend protocol</a>
+        — the open protocol implemented by the receiver.</li>
+    <li>Python runtime dependencies:
+        <code>watchdog</code> (Apache 2.0),
+        <code>httpx</code> (BSD-3-Clause),
+        <code>pydantic-settings</code> (MIT).</li>
+  </ul>
+  <p>LocalSend and Paperless-ngx are independent projects; this wrapper is
+     not affiliated with either.</p>
+</section>
+
+<footer>
+  <p>
+    <span class="pill">MIT</span>
+    <span class="pill">Docker</span>
+    <span class="pill">LocalSend v2</span>
+    <span class="pill">Paperless-ngx</span>
+  </p>
+  <p>Source &amp; issues: <a href="https://github.com/do2sz/localsend-paperless-docker">github.com/do2sz/localsend-paperless-docker</a></p>
+</footer>
+
+</div>
+</body>
+</html>

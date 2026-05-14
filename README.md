@@ -4,6 +4,11 @@ Headless [LocalSend](https://localsend.org) receiver in Docker that auto-accepts
 every transfer and forwards each file to a [Paperless-ngx](https://docs.paperless-ngx.com/)
 instance via the REST API.
 
+> **Full documentation:** see [`docs/index.html`](./docs/index.html) for a
+> visual walkthrough, architecture diagram, configuration reference and
+> troubleshooting guide. Once the repository is public on GitHub you can also
+> enable GitHub Pages from `main` / `/docs` to serve it as a website.
+
 ```
 phone/laptop → LocalSend (HTTPS :53317) → container → Paperless-ngx
                                         (auto-accept,    (POST /api/documents/post_document/)
@@ -119,6 +124,25 @@ Both live under `/data`, mounted to `./data` by the bundled compose file.
 
 ## License
 
-This wrapper is provided as-is. The vendored `localsend-cli` binary is built
-from <https://github.com/0w0mewo/localsend-cli> (MIT). LocalSend itself is
-maintained at <https://github.com/localsend/localsend>.
+Released under the [MIT License](./LICENSE).
+
+### Attribution
+
+This image builds and bundles the following upstream components:
+
+- [`0w0mewo/localsend-cli`](https://github.com/0w0mewo/localsend-cli) — MIT,
+  compiled from source inside the Docker build.
+- [LocalSend protocol](https://github.com/localsend/protocol) — the open
+  protocol implemented by the receiver.
+- Python runtime dependencies: [`watchdog`](https://github.com/gorakhargosh/watchdog)
+  (Apache 2.0), [`httpx`](https://github.com/encode/httpx) (BSD-3-Clause),
+  [`pydantic-settings`](https://github.com/pydantic/pydantic-settings) (MIT).
+
+LocalSend and Paperless-ngx are independent projects; this wrapper is not
+affiliated with either.
+
+## Contributing
+
+Issues and pull requests are welcome. Please keep changes minimal and focused,
+and avoid adding runtime dependencies unless they remove substantially more
+code than they add.
